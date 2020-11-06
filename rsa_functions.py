@@ -4,7 +4,7 @@ class RSA():
     def __init__(self, public_key, private_key = None):
         self.public_key = public_key
         self.private_key = private_key
-
+        
     @staticmethod
     def generate(digits = 10):
         """
@@ -21,7 +21,6 @@ class RSA():
         * The private key (N,d)
         """
 
-
     def encrypt(self, m):
         """
         Encrypts the plaintext m using the RSA system
@@ -34,6 +33,9 @@ class RSA():
         -------
         c : The encrypted ciphertext
         """
+        (N, e) = self.public_key
+        c = number_theory_functions.modular_exponent(m, e, N)
+        return c
 
 
     def decrypt(self, c):
@@ -47,4 +49,7 @@ class RSA():
         Returns
         -------
         m : The decrypted plaintext
-       """
+        """
+        (N, d) = self.private_key
+        m = number_theory_functions.modular_exponent(c, d, N)
+        return m

@@ -1,10 +1,26 @@
 from random import randrange
 
+def swap(a, b):
+    temp = a
+    a = b
+    b = temp
+
+def gcd(a, b):
+    if a < b:
+        swap(a,b)
+    
+    # a >= b
+    r = a % b
+    if r == 0:
+        return b
+    else :
+        return gcd(b, r)
+
 def extended_gcd(a,b):
     """
     Returns the extended gcd of a and b
 
-    Parameters
+    Parameters 
     ----------
     a : Input data.
     b : Input data.
@@ -13,8 +29,24 @@ def extended_gcd(a,b):
     (d, x, y): d = gcd(a,b) = a*x + b*y
     """
 
+    big = max(a,b)
+    small = min(a,b)
+
+    r = big % small
+    q = big // small
+
+    if (r==0):
+        return small,0,0
+
+    son_gcd, x, y = extended_gcd(small,r)
+    
+    if (x==0 and y==0):
+        return son_gcd,1,-q
+
+    return son_gcd,y,int(x-q*y)
 
 
+# a = e, n = (p-1)(q-1)
 def modular_inverse(a,n):
     """
     Returns the inverse of a modulo n if one exists
@@ -28,9 +60,17 @@ def modular_inverse(a,n):
     -------
     x: such that (a*x % n) == 1 and 0 <= x < n if one exists, else None
     """
+    (gcd, x, y) = extended_gcd(n,a) # y*a + x*n = 1
+    print(gcd, x, y)
+    return y % n
 
+
+# bin(10)[2:] = 1010
+# bin(10) = 0b1010
 
 def modular_exponent(a, d, n):
+    # bin_a = bin(a)
+    
     """
     Returns a to the power of d modulo n
 
@@ -44,6 +84,17 @@ def modular_exponent(a, d, n):
     -------
     b: such that b == (a**d) % n
     """
+    
+    a = a % n
+
+    i = 0
+    tmp = 1
+    for i in range(len(bin(d)) - 2):
+        
+        tmp *= a ** (d & (2**i))
+        tmp %= n
+
+    return tmp
 
 def miller_rabin(n):
     """

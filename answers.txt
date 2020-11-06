@@ -1,0 +1,16 @@
+Question 1:
+This is possible if Loki gives Iron man 1,179,000,000 (with 797 USD bills) and gets a change of 178,000,000 with (5279 USD bills).
+
+Question 2:
+The answer is 3 .
+We ran modular_exponent for (23539673,3434462,1000) and got the answer of 329.
+
+Question 3:
+The decrypted message is 3023178.
+We found the prime numbers 3491 & 3499 using a crystal ball, then used modular_inverse(3499, (3491-1)*(3499-1)) to find d (5425399).
+Finally, we used decrypt with the private key N (12215009) & d (5425399).
+
+Question 4:
+We chose the message 42, and the public key 1237 (prime number under (q-1)*(p-1)).
+The encrypted message is 33714730.
+We checked that decrypting using the private key 4203133 gives us the message 42.
